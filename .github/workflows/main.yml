@@ -20,7 +20,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: docker build -t otavioantocevicz/somativa2devops .
+      - run: npm i
+      - run: npm run build
 
   test-job:
     runs-on: ubuntu-latest
@@ -28,14 +29,15 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x]
+
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: docker build -t otavioantocevicz/somativa2devops .
-      - run: docker run otavioantocevicz/somativa2devops
+      - run: npm i
+      - run: npm test
 
   hello-job:
     runs-on: ubuntu-latest
@@ -53,10 +55,10 @@ jobs:
       - run: node hello.js
 
   deploy-job:
-    runs-on: docker-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: ngrok http 8080
+      - run:ngrok http 8080
       - run: docker login -u ${{ secrets.dockeruser }} -p ${{ secrets.dockerpassword }}
-      - run: docker build -t otavioantocevicz/somativa2devops .
+      - run: docker run otavioantocevicz/somativa2devops
       - run: docker push otavioantocevicz/somativa2devops
