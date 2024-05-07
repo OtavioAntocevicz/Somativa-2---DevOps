@@ -61,7 +61,7 @@ jobs:
       - run: docker login -u ${{ secrets.dockeruser }} -p ${{ secrets.dockerpassword }}
       - run: docker build -t otavioantocevicz/somativa2devops .
       - run: docker push otavioantocevicz/somativa2devops
-      - run: curl -X POST -H 'Content-Type: application/json' -d '{"chat_id": "${{ secrets.telegramchatid }}", "text": "Sucesso no deploy"}' https://api.telegram.org/bot${{ secrets.telegrambottoken }}/sendMessage
+      - run: "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\": \"${{ secrets.telegramchatid }}\", \"text\": \"Sucesso no deploy\"}' https://api.telegram.org/bot${{ secrets.telegrambottoken }}/sendMessage"
 
   report-fail-job: 
     steps:
