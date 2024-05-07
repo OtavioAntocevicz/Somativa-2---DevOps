@@ -67,5 +67,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - if: ${{ failure() }}
       - run: echo "This step will run even if the previous step fails"
