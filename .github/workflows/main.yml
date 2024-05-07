@@ -64,6 +64,7 @@ jobs:
       - run: "curl -X POST -H 'Content-Type: application/json'"
 
   report-fail-job:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - if: ${{ failure() }}
